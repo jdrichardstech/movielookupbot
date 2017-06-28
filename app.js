@@ -15,9 +15,10 @@ app.get('/', (req, res)=>{
 })
 
 app.get('/webhook', (req, res)=>{
-	if(req.query["hub.verify_token"]===process.env.VERIFICATION_TOKEN){
-		console.log("Verified Webhook")
-		res.send(200).send(req.query["hub.challenge"])
+	if(req.query['hub.mode'] === 'subscribe' &&
+		req.query['hub.verify_token']===process.env.VERIFICATION_TOKEN){
+		console.log('Verified Webhook')
+		res.status(200).send(req.query['hub.challenge'])
 	}else{
 		console.log("Verification failed. Tokens do not match")
 		res.sendStatus(403)
