@@ -15,7 +15,7 @@ app.get('/', (req, res)=>{
 })
 
 app.get('/webhook', (req, res)=>{
-	if(req.query["hub.verify_token"]===process.env.MY_TOKEN){
+	if(req.query["hub.verify_token"]===process.env.VERIFICATION_TOKEN){
 		console.log("Verified Webhook")
 		res.send(200).send(req.query["hub.challenge"])
 	}else{
